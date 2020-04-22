@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Python Flask Multiple Files Upload Example</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="mb-3 mt-3">
+
+                    <h2 class="mb-3" style="font-weight: 300">Upload File(s)</h2>
+                    <p>Use the CTRL key to select multiple files</p>
+                    <p>
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <ul class="flashes">
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% endwith %}
+                    </p>
+
+                    <form method="post" action="/" enctype="multipart/form-data">
+                        <dl>
+                            <p>
+                                <input type="file" name="files[]" multiple="true" autocomplete="off" required>
+                            </p>
+                        </dl>
+                        <p>
+                            <input type="submit" value="Submit">
+                        </p>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
