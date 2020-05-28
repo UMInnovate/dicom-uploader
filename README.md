@@ -15,7 +15,7 @@ If you use pip,
 
 ## To run things
 
-I'm still working on moving the web form to a server that it can live on, but for development purposes, you can use `flask run` to set up a local instance at [`https:\\localhost:5000`](https:\\localhost:5000).
+I'm still working on moving the web form to a server that it can live on, but for development purposes, you can use `flask run` to set up a local instance at [`https:\\localhost:5000`](https:\localhost:5000).
 
 # Starting Web Form locally on Windows
 
