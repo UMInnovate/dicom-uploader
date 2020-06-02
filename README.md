@@ -13,7 +13,9 @@ If you use pip,
 
 1. run `pip3 install -r requirements2.txt`
 
-## To run things
+## To run the app locally
+
+### Windows
 
 I'm still working on moving the web form to a server that it can live on, but for development purposes, you can use `flask run` to set up a local instance at [`https:\\localhost:5000`](https:\localhost:5000).
 
