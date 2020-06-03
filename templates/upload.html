@@ -3,8 +3,23 @@
 
 <head>
     <title>Python Flask Multiple Files Upload Example</title>
-
 </head>
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
 
 <body>
     <h2>Select file(s) to upload</h2>
@@ -12,13 +27,13 @@
     <p>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul class="flashes">
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
+    <ul class="flashes">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     </p>
     <form method="post" action="/" enctype="multipart/form-data">
         <dl>
