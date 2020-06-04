@@ -26,11 +26,12 @@ def folderIncrement():
     UPLOAD_FOLDER = "uploads/" + str(curr)
     os.mkdir(UPLOAD_FOLDER)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+    return curr
 
 
 app = Flask(__name__)
 app.secret_key = "secret key"
-folderIncrement()
+# folderIncrement()
 
 
 def allowed_file(filename):
@@ -47,7 +48,7 @@ def upload_form():
 @app.route("/", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
-
+        pin = folderIncrement()
         # check if the post request has the files part
         if "files[]" not in request.files:
             flash("No file part")
@@ -59,13 +60,11 @@ def upload_file():
             files[i].save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
             # if i == (len(files) - 1):
             #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
-        flash("File(s) successfully uploaded! Please reload page to reupload~")
+        flash("File(s) successfully uploaded! Please enter " +
+              str(pin) + " on your Magic Leap headset.")
 
         return redirect("/")
 
 
 if __name__ == "__main__":
     app.run()
-
-# TODO compress main and app into one file.
-# TODO redo README documentation
