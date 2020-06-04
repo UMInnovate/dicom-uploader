@@ -1,6 +1,5 @@
 import os
 import urllib.request
-# from app import app
 from flask import (
     Flask,
     flash,
@@ -31,7 +30,6 @@ def folderIncrement():
 
 app = Flask(__name__)
 app.secret_key = "secret key"
-# folderIncrement()
 
 
 def allowed_file(filename):
