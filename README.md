@@ -1,32 +1,67 @@
-# How to set up
+# Flask Uploader Form
 
-## Getting all dependencies
+## Setting up the environment
 
-If you use `conda`,
+### The short way
 
-1. cd into this directory.
-1. run `conda create --prefix ./env --file requirements.txt` and complete the associated prompts to install most dependencies
-1. run `conda activate ./env` to activate the environment.
-1. Once environment is active, run `pip install flask-wtf wtforms` to install the right versions of the form-making library.
+Using `conda` you can run the following command:
 
-If you use pip,
+```bash
+conda create --prefix ./env --file package-list.txt
+```
 
-1. run `pip3 install -r requirements2.txt`
+After you follow the prompts, you can activate your environment using the following command:
 
-## To run things
+```bash
+conda activate ./env/
+```
 
-I'm still working on moving the web form to a server that it can live on, but for development purposes, you can use `flask run` to set up a local instance at [`https:\\localhost:5000`](https:\localhost:5000).
+And you can deactivate your environment using:
 
-# Starting Web Form locally on Windows
+```bash
+conda deactivate
+```
 
-1. Install python (check: type "python" in terminal)
-2. Install Flask (type "pip install flask" in terminal)
-3. Navigate to directory with flask app
-4. Set flask app script (type "set FLASK_APP=main.py" in terminal)
-5. Run flask app locally (type: "flask run" in terminal)
-6. Navigate to "http://localhost:5000" in browser address bar
+### The slightly longer way
 
-# Starting GitAutoPush
+If you want to install things yourself using conda you can start with a fresh environment:
 
-1. Move the bash to a directory outside of git repo
-2. Run gitautopush
+```bash
+conda create --prefix ./env python=3.7
+```
+
+This script will create an environment on your local machine inside the current folder. To activate the environment you can run this command: `conda activate ./env/`.
+
+(Once you're done working on stuff in this repo, I recommend deactivating the environment using: `conda deactivate`.)
+
+As of right now the most important package we're using is `flask`. To install flask on the environment you can run the following code once your environment is active:
+
+```
+conda install flask
+```
+
+### Other ways
+
+If you use pip, you can check the `requirements.txt` file for what to install.
+
+If you use another virtual environment management tool, one of these two files (package-list.txt or requirements.txt) should help you on your way.
+
+If you don't use a virtual environment, today's a good day to start. It makes keeping versions of code consistent across machines and time.
+
+## To run the app locally
+
+With your environment active, run the following in your terminal:
+
+```bash
+export set FLASK_APP=main.py
+```
+
+This points the logic of the flask app to run from `main.py` instead of the default `app.py` (one of my future TODOs is to get rid of this extra step).
+
+To run the app locally in a dev environment all you need to do now is type this command:
+
+```bash
+flask run
+```
+
+And go to the following URL in a browser: [`http://localhost:5000`](http://localhost:5000).
