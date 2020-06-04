@@ -56,7 +56,7 @@ With your environment active, run the following in your terminal:
 export set FLASK_APP=main.py
 ```
 
-This points the logic of the flask app to run from `main.py` instead of the default `app.py` (one of my future TODOs is to get rid of this extra step).
+This points the logic of the flask app to run from `main.py` instead of the default `app.py`. By including both export and set, you get around the UNIX/Windows differences (one of my future TODOs is to get rid of this extra step).
 
 To run the app locally in a dev environment all you need to do now is type this command:
 
