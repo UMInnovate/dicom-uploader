@@ -48,6 +48,3 @@ def upload_file():
 
 if __name__ == "__main__":
     app.run()
-
-# TODO compress main and app into one file.
-# TODO redo README documentation
