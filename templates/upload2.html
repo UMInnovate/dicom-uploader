@@ -22,8 +22,7 @@
 </style>
 
 <body>
-    <h2>Select file(s) to upload</h2>
-    <p>Use the Shift+CTRL key to select multiple files</p>
+    <h2>Now processing your file(s)</h2>
     <p>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -35,16 +34,6 @@
     {% endif %}
     {% endwith %}
     </p>
-    <form method="post" action="/" enctype="multipart/form-data">
-        <dl>
-            <p>
-                <input type="file" name="files[]" multiple="true" autocomplete="off" required>
-            </p>
-        </dl>
-        <p>
-            <input type="submit" value="Submit">
-        </p>
-    </form>
 </body>
 
 </html>

@@ -22,8 +22,8 @@
 </style>
 
 <body>
-    <h2>Select file(s) to upload</h2>
-    <p>Use the Shift+CTRL key to select multiple files</p>
+    <h2>Your file(s) has/have been processed.</h2>
+    <p>Please open the viewer application on your headset and enter the pin below:</p>
     <p>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -35,16 +35,6 @@
     {% endif %}
     {% endwith %}
     </p>
-    <form method="post" action="/" enctype="multipart/form-data">
-        <dl>
-            <p>
-                <input type="file" name="files[]" multiple="true" autocomplete="off" required>
-            </p>
-        </dl>
-        <p>
-            <input type="submit" value="Submit">
-        </p>
-    </form>
 </body>
 
 </html>
