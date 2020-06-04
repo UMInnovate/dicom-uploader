@@ -1,6 +1,6 @@
 import os
 import urllib.request
-from app import app
+# from app import app
 from flask import (
     Flask,
     flash,
@@ -13,6 +13,24 @@ from flask import (
 from werkzeug.utils import secure_filename
 
 ALLOWED_EXTENSIONS = set(["dcm", "png", "jpg"])
+
+
+def folderIncrement():
+    curr = 0
+    folders = os.walk("uploads/")
+    for i, j, k in folders:
+        if len(j) > 0:
+            curr = int(max(j)) + 1
+        else:
+            curr = curr
+    UPLOAD_FOLDER = "uploads/" + str(curr)
+    os.mkdir(UPLOAD_FOLDER)
+    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+
+app = Flask(__name__)
+app.secret_key = "secret key"
+folderIncrement()
 
 
 def allowed_file(filename):
