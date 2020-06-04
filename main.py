@@ -20,8 +20,6 @@ def folderIncrement():
     for i, j, k in folders:
         if len(j) > 0:
             curr = int(max(j)) + 1
-        else:
-            curr = curr
     UPLOAD_FOLDER = "uploads/" + str(curr)
     os.mkdir(UPLOAD_FOLDER)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -58,10 +56,10 @@ def upload_file():
             files[i].save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
             # if i == (len(files) - 1):
             #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
-        flash("File(s) successfully uploaded! Please enter " +
-              str(pin) + " on your Magic Leap headset.")
+        # flash("File(s) successfully uploaded! Please enter " +
+        #       str(pin) + " on your Magic Leap headset.")
 
-        return redirect("/")
+        return render_template("upload3.html", pin=pin)
 
 
 if __name__ == "__main__":
