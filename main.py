@@ -34,12 +34,13 @@ def writefile(txt):
 
 def randomPin():
     pinsize = 6
-    pinarr = []
+    pinarr = ""
     for i in range(pinsize):
-        pinarr.append(str(random.randint(0, 9)))
-    if pinarr not in openfile():
+        pinarr += str(random.randint(0, 9))
+    if [pinarr] not in openfile():
         return pinarr
     else:
+        print("used pin")
         randomPin()
 
 
@@ -72,7 +73,7 @@ def upload_form():
 def upload_file():
     if request.method == "POST":
         pin = folderIncrement()
-        writefile(pin)
+        writefile([pin])
         # check if the post request has the files part
         if "files[]" not in request.files:
             flash("No file part")
