@@ -1,5 +1,7 @@
 import os
 import urllib.request
+import random
+import csv
 from flask import (
     Flask,
     flash,
@@ -14,13 +16,38 @@ from werkzeug.utils import secure_filename
 ALLOWED_EXTENSIONS = set(["dcm", "png", "jpg"])
 
 
+def openfile():
+    f = open("pins.csv", 'r')
+    pinread = []
+    for k in csv.reader(f):
+        pinread.append(k)
+    f.close()
+    return pinread
+
+
+def writefile(txt):
+    f = open("pins.csv", 'a', newline='')
+    pinwrite = csv.writer(f)
+    pinwrite.writerow(txt)
+    f.close
+
+
+def randomPin():
+    pinsize = 6
+    pinarr = []
+    for i in range(pinsize):
+        pinarr.append(str(random.randint(0, 9)))
+    if pinarr not in openfile():
+        return pinarr
+    else:
+        randomPin()
+
+
 def folderIncrement():
-    curr = 0
-    folders = os.walk("uploads/")
-    for i, j, k in folders:
-        if len(j) > 0:
-            curr = int(max(j)) + 1
-    UPLOAD_FOLDER = "uploads/" + str(curr)
+    curr = ""
+    for i in randomPin():
+        curr += i
+    UPLOAD_FOLDER = "uploads/" + curr
     os.mkdir(UPLOAD_FOLDER)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     return curr
@@ -45,6 +72,7 @@ def upload_form():
 def upload_file():
     if request.method == "POST":
         pin = folderIncrement()
+        writefile(pin)
         # check if the post request has the files part
         if "files[]" not in request.files:
             flash("No file part")
@@ -56,9 +84,6 @@ def upload_file():
             files[i].save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
             # if i == (len(files) - 1):
             #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
-        # flash("File(s) successfully uploaded! Please enter " +
-        #       str(pin) + " on your Magic Leap headset.")
-
         return render_template("upload3.html", pin=pin)
 
 
