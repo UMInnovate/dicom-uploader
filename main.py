@@ -40,14 +40,17 @@ def randomPin():
     if [pinarr] not in openfile():
         return pinarr
     else:
-        print("used pin")
-        randomPin()
+        if len(openfile()) != 10**pinsize:
+            print("used pin")
+            return randomPin()
+        else:
+            # what is below MUST be replaced with something real
+            print("all pins used, must delete something")
+            exit(0)
 
 
 def folderIncrement():
-    curr = ""
-    for i in randomPin():
-        curr += i
+    curr = randomPin()
     UPLOAD_FOLDER = "uploads/" + curr
     os.mkdir(UPLOAD_FOLDER)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
