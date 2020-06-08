@@ -24,17 +24,7 @@
 <body>
     <h2>Your file(s) has/have been processed.</h2>
     <p>Please open the viewer application on your headset and enter the pin below:</p>
-    <p>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-    <ul class="flashes">
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    </p>
+    <h1>{{pin}}</h1>
 </body>
 
 </html>

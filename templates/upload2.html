@@ -23,17 +23,6 @@
 
 <body>
     <h2>Now processing your file(s)</h2>
-    <p>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-    <ul class="flashes">
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    </p>
 </body>
 
 </html>
