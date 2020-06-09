@@ -31,19 +31,45 @@
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase">Universal Loader</h1>
-                <div class="d-block" id="form">
-                    <h2 class="text-dark mx-auto mt-2 mb-5">Your file(s) has/have been processed.</h2>
-                    <p class="text-dark mx-auto mt-2 mb-5">Please open the viewer application on your headset and enter
-                        the pin below:</p>
-                    <h1 class="text-dark mx-auto mt-2 mb-5">{{pin}}</h1>
+                <div id="form">
+                    <h2 class="text-dark mx-auto mt-2 mb-5">Upload any .dcm, .stl, or .obj file to build models on the
+                        Magic
+                        Leap One</h2>
+                    <div>
+                        <p class="text-dark mx-auto mt-2 mb-5">
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                        <ul class="text-dark mx-auto mt-2 mb-5 flashes">
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% endwith %}
+                        </p>
+                    </div>
+                    <form method="post" action="/" enctype="multipart/form-data">
+                        <dl>
+                            <p>
+                                <input class="btn btn-secondary" type="file" name="files[]" multiple="true"
+                                    autocomplete="off" required>
+                            </p>
+                        </dl>
+                        <p>
+                            <input class="btn btn-primary" id="enter" type="submit" value="Submit">
+                        </p>
+                    </form>
+                </div>
+                <div class="d-none" id="loading">
+                    <h2 class="text-dark mx-auto mt-2 mb-5">Now processing your files</h2>
                 </div>
             </div>
         </div>
     </header>
+    <!-- Footer-->
     <footer class="footer bg-black small text-center text-white-50">
         <div class="container">Copyright © uminnovate 2020</div>
     </footer>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
 

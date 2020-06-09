@@ -70,13 +70,13 @@ def allowed_file(filename):
 
 @app.route("/")
 def upload_form():
-    return render_template("upload.html")
+    return render_template("index.html")
 
 
 @app.route("/", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
-        time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
+        # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
         pin = folderIncrement()
         writefile([pin])
         # check if the post request has the files part
