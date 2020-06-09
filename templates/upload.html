@@ -3,11 +3,16 @@
 
 <head>
     <title>Python Flask Multiple Files Upload Example</title>
+    <script>
+        function preloader() {
+            document.getElementById("form").style.display = "none";
+            document.getElementById("loading").style.display = "flex";
+        }
+    </script>
 </head>
 
 <style>
-    body {
-        display: flex;
+    div {
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -19,32 +24,45 @@
         justify-content: center;
         align-items: center;
     }
+
+    #form {
+        display: flex;
+    }
+
+    #loading {
+        display: none;
+    }
 </style>
 
 <body>
-    <h2>Select file(s) to upload</h2>
-    <p>Use the Shift+CTRL key to select multiple files</p>
-    <p>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-    <ul class="flashes">
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    </p>
-    <form method="post" action="/" enctype="multipart/form-data">
-        <dl>
-            <p>
-                <input type="file" name="files[]" multiple="true" autocomplete="off" required>
-            </p>
-        </dl>
+    <div id="form">
+        <h2>Select file(s) to upload</h2>
+        <p>Use the Shift+CTRL key to select multiple files</p>
         <p>
-            <input type="submit" value="Submit">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         </p>
-    </form>
+        <form method="post" action="/" enctype="multipart/form-data">
+            <dl>
+                <p>
+                    <input type="file" name="files[]" multiple="true" autocomplete="off" required>
+                </p>
+            </dl>
+            <p>
+                <input type="submit" value="Submit" onclick="preloader();">
+            </p>
+        </form>
+    </div>
+    <div id="loading">
+        <h2>Now processing your file(s).</h2>
+    </div>
 </body>
 
 </html>

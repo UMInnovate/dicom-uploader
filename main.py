@@ -2,6 +2,7 @@ import os
 import urllib.request
 import random
 import csv
+import time
 from flask import (
     Flask,
     flash,
@@ -69,12 +70,13 @@ def allowed_file(filename):
 
 @app.route("/")
 def upload_form():
-    return render_template("upload.html")
+    return render_template("index.html")
 
 
 @app.route("/", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
+        # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
         pin = folderIncrement()
         writefile([pin])
         # check if the post request has the files part
@@ -88,7 +90,7 @@ def upload_file():
             files[i].save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
             # if i == (len(files) - 1):
             #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
-        return render_template("upload3.html", pin=pin)
+        return render_template("success.html", pin=pin)
 
 
 if __name__ == "__main__":
