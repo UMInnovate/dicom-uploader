@@ -60,4 +60,13 @@
         $("#loading").removeClass("d-none");
     });
 
+    $("#files").change(function () {
+        var arr = document.getElementById("files").files;
+        var num = arr.length;
+        for (let index = 0; index < num; index++) {
+            var element = '<p><textarea class="form-control" placeholder="Please enter caption for ' + arr[index].name + '"></textarea></p>'
+            $(".form-input").append(element)
+        }
+    });
+
 })(jQuery); // End of use strict
