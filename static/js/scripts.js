@@ -56,8 +56,23 @@
 
     // When submit button is pressed, hide the form and show the loading message
     $("#enter").click(function () {
-        $("#form").addClass("d-none");
-        $("#loading").removeClass("d-none");
+        var f = document.getElementsByTagName("form")[0];
+        if (f.checkValidity()) {
+            $("#form").addClass("d-none");
+            $("#loading").removeClass("d-none");
+        }
+    });
+
+    $("#files").change(function () {
+        var arr = document.getElementById("files").files;
+        var num = arr.length;
+        var elementarray = []
+        for (let index = 0; index < num; index++) {
+            var element = '<p><textarea class="form-control" name="caption' + index + '" placeholder="Please enter caption for ' + arr[index].name + '" required></textarea></p>'
+            elementarray.push(element)
+        }
+        $(".form-input").empty();
+        $(".form-input").append(elementarray);
     });
 
 })(jQuery); // End of use strict
