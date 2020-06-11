@@ -55,7 +55,7 @@
     $(window).scroll(navbarCollapse);
 
     // When submit button is pressed, hide the form and show the loading message
-    $("#enter").click(function () {
+    $("form").click(function () {
         var f = document.getElementsByTagName("form")[0];
         if (f.checkValidity()) {
             $("#form").addClass("d-none");
@@ -63,16 +63,22 @@
         }
     });
 
-    $("#files").change(function () {
-        var arr = document.getElementById("files").files;
-        var num = arr.length;
+    $(".quantity").change(function () {
+        var num = $(this).val();
         var elementarray = []
         for (let index = 0; index < num; index++) {
-            var element = '<p><textarea class="form-control" name="caption' + index + '" placeholder="Please enter caption for ' + arr[index].name + '" required></textarea></p>'
+            var element = '<dl class="btn btn-secondary" name="model' + index + '">' +
+                '<h2 class="text-light mx-auto mt-2 mb-5">' +
+                'Please select files and captions for model ' + index + '.' +
+                '</h2>' +
+                '<input id="files" type="file" name="files[]" multiple="true" autocomplete="off" required>' +
+                '<textarea class="form-control" name="caption' + index + '" placeholder="Please enter caption" required></textarea>' +
+                '</p>' +
+                '</dl>'
             elementarray.push(element)
         }
-        $(".form-input").empty();
-        $(".form-input").append(elementarray);
+        $("#models").empty();
+        $("#models").append(elementarray);
     });
 
 })(jQuery); // End of use strict

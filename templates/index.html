@@ -32,9 +32,9 @@
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase">Universal Loader</h1>
                 <div id="form">
-                    <h2 class="text-dark mx-auto mt-2 mb-5">Upload any .dcm, .stl, or .obj file to build models on the
-                        Magic
-                        Leap One</h2>
+                    <h2 class="text-dark mx-auto mt-2 mb-5">Please select the number of models you would like to add.
+                    </h2>
+                    <input class="quantity" min="0" name="quantity" value="0" type="number">
                     <div>
                         <p class="text-dark mx-auto mt-2 mb-5">
                             {% with messages = get_flashed_messages() %}
@@ -49,13 +49,8 @@
                         </p>
                     </div>
                     <form method="post" action="/" enctype="multipart/form-data">
-                        <dl>
-                            <p>
-                                <input class="btn btn-secondary" id="files" type="file" name="files[]" multiple="true"
-                                    autocomplete="off" required>
-                            </p>
-                            <p class="form-input"></p>
-                        </dl>
+                        <div id="models">
+                        </div>
                         <p>
                             <input class="btn btn-primary" id="enter" type="submit" value="Submit">
                         </p>
