@@ -81,20 +81,25 @@ def upload_file():
         # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
         pin = folderIncrement()
         writefile([pin])  # comment for testing, uncomment for full
+        data = dict({"pin": pin})
         # check if the post request has the files part
-        if "files[]" not in request.files:
-            flash("No file part")
-            return redirect(request.url)
-        files = request.files.getlist("files[]")
-        data = dict()
-        for i in range(len(files)):
-            #     # if file and allowed_file(file.filename):
-            filename = secure_filename(files[i].filename)
-            # comment for testing, uncomment for full
-            files[i].save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-            cap = request.form.get("caption" + str(i))
+        quantity = int(request.form["quantity"])
+        for i in range(quantity):
+            curr = str(i)
+            if "files" + curr + "[]" not in request.files:
+                flash("No file part")
+                return redirect(request.url)
+            files = request.files.getlist("files" + curr + "[]")
+            cap = request.form.get("caption" + curr)
             if cap is not None:
-                data.update({filename: {"caption": cap}})
+                data.update({curr: {"caption": cap, "files": []}})
+            for i in range(len(files)):
+                #     # if file and allowed_file(file.filename):
+                # comment for testing, uncomment for full
+                filename = secure_filename(files[i].filename)
+                files[i].save(os.path.join(
+                    app.config["UPLOAD_FOLDER"], filename))
+                data[curr]["files"].append(filename)
             # if i == (len(files) - 1):
             #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
         # comment for testing, uncomment for full

@@ -55,7 +55,7 @@
     $(window).scroll(navbarCollapse);
 
     // When submit button is pressed, hide the form and show the loading message
-    $("form").click(function () {
+    $("#enter").click(function () {
         var f = document.getElementsByTagName("form")[0];
         if (f.checkValidity()) {
             $("#form").addClass("d-none");
@@ -67,14 +67,13 @@
         var num = $(this).val();
         var elementarray = []
         for (let index = 0; index < num; index++) {
-            var element = '<dl class="btn btn-secondary" name="model' + index + '">' +
-                '<h2 class="text-light mx-auto mt-2 mb-5">' +
-                'Please select files and captions for model ' + index + '.' +
-                '</h2>' +
-                '<input id="files" type="file" name="files[]" multiple="true" autocomplete="off" required>' +
-                '<textarea class="form-control" name="caption' + index + '" placeholder="Please enter caption" required></textarea>' +
-                '</p>' +
-                '</dl>'
+            var element = `<dl class="btn btn-secondary" name="model${index}">
+                                <h2 class="text-light mx-auto mt-2 mb-5">
+                                    Please select files and captions for model ${index}.
+                                </h2>
+                                <input type="file" name="files${index}[]" multiple="true" autocomplete="off" required>
+                                <textarea class="form-control" name="caption${index}" placeholder="Please enter caption" required></textarea>
+                            </dl>`
             elementarray.push(element)
         }
         $("#models").empty();
