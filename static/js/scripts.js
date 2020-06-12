@@ -63,14 +63,15 @@
         }
     });
 
+    // we can keep the below function for when we need to add stuff later
     $(".quantity").change(function () {
         var num = $(this).val();
         var elementarray = []
         for (let index = 0; index < num; index++) {
             var element = `<dl class="btn btn-secondary" name="model${index}">
-                                <h2 class="text-light mx-auto mt-2 mb-5">
+                                <p class="text-white mx-auto mt-2 mb-5">
                                     Please select files and captions for model ${index}.
-                                </h2>
+                                </p>
                                 <input type="file" name="files${index}[]" multiple="true" autocomplete="off" required>
                                 <textarea class="form-control" name="caption${index}" placeholder="Please enter caption" required></textarea>
                             </dl>`
