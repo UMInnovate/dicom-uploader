@@ -4,7 +4,37 @@
 
 ## Setting up the environment
 
-### The short way
+### The short way with venv
+
+You can set things up using python's venv package. First run the following command:
+
+```bash
+python3 -m venv env
+```
+
+This creates the environment where you are at (hopefully inside this repo). Then you need to activate the environment. To do that, run:
+
+```bash
+source env/bin/activate
+```
+
+If you're doing things on Windows, there is a `Scripts` folder instead of `bin`.
+Use this folder to activate things on Windows.
+
+To deactivate the environment (do this when you're done working on things), run:
+
+```bash
+deactivate
+```
+
+Once the environment is active, please run the following to install the packages
+we use:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+### The short way with Conda
 
 Using `conda` you can run the following command:
 
@@ -24,7 +54,12 @@ And you can deactivate your environment using:
 conda deactivate
 ```
 
-### The slightly longer way
+With the environment active, you should update pip if you haven't already.
+Run this: `python3 -m pip install --upgrade pip`.
+
+Once that is done you should
+
+### The slightly longer way with Conda
 
 If you want to install things yourself using conda you can start with a fresh environment:
 
