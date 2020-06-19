@@ -96,7 +96,3 @@ def upload_file():
         #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
         # comment for testing, uncomment for full
         return render_template("success.html", pin=pin)
-
-
-if __name__ == "__main__":
-    app.run()
