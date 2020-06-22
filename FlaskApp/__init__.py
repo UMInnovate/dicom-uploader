@@ -52,7 +52,8 @@ def randomPin():
 
 def folderIncrement():
     curr = randomPin()
-    UPLOAD_FOLDER = "uploads/" + curr  # comment for testing, uncomment for full
+    # comment for testing, uncomment for full
+    UPLOAD_FOLDER = "FlaskApp/uploads/" + curr
     os.mkdir(UPLOAD_FOLDER)  # comment for testing, uncomment for full
     # comment for testing, uncomment for full
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
