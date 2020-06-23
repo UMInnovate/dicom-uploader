@@ -55,6 +55,7 @@ def folderIncrement():
     # comment for testing, uncomment for full
     UPLOAD_FOLDER = "../storage/dicom/" + curr
     os.mkdir(UPLOAD_FOLDER)  # comment for testing, uncomment for full
+    os.mkdir("../storage/obj/" + curr)
     # comment for testing, uncomment for full
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     return curr
