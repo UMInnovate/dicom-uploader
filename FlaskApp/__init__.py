@@ -45,19 +45,19 @@ def randomPin():
             print("used pin")
             return randomPin()
         else:
-            # what is below MUST be replaced with something real
+            # below MUST be replaced with an actual method for when all pins are used up
             print("all pins used, must delete something")
             exit(0)
 
 
 def folderIncrement():
     curr = randomPin()
-    # comment for testing, uncomment for full
+    # TEST COMMENT START
     UPLOAD_FOLDER = "../storage/dicom/" + curr
-    os.mkdir(UPLOAD_FOLDER)  # comment for testing, uncomment for full
+    os.mkdir(UPLOAD_FOLDER)
     os.mkdir("../storage/obj/" + curr)
-    # comment for testing, uncomment for full
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+    # TEST COMMENT END
     return curr
 
 
@@ -71,22 +71,25 @@ def allowed_file(filename):
     return checkForExtension and checkExtension
 
 
-# when we decide to use the future functionality, we will need to re-route the dicom-specific files to a "/dicom" route in both this script and "index.html"
+# for future functionality, replace "/" with "/{route_to_dicom}" below
 @app.route("/")
 def upload_form_dicom():
     return render_template("index.html")
 
+# for future functionality, uncomment (and replace "/art_history" with "/{route_to_art_history}") below
 # @app.route("/art_history")
 # def upload_form_art_history():
 #     return render_template("index_future.html")
 
 
+# for future functionality, replace "/" with "/{route_to_dicom}" below
 @app.route("/", methods=["GET", "POST"])
 def upload_file_dicom():
     if request.method == "POST":
         # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
         pin = folderIncrement()
-        writefile([pin])  # comment for testing, uncomment for full
+        # TEST COMMENT START
+        writefile([pin])
         # check if the post request has the files part
         if "files[]" not in request.files:
             flash("No file part")
@@ -94,22 +97,23 @@ def upload_file_dicom():
         files = request.files.getlist("files[]")
         for i in range(len(files)):
             #     # if file and allowed_file(file.filename):
-            # comment for testing, uncomment for full
             filename = secure_filename(files[i].filename)
             files[i].save(os.path.join(
                 app.config["UPLOAD_FOLDER"], filename))
         # if i == (len(files) - 1):
         #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
-        # comment for testing, uncomment for full
+        # TEST COMMENT END
         return render_template("success.html", pin=pin)
 
 
+# for future functionality, uncomment (and replace "/art_history" with "/{route_to_art_history}") below
 # @app.route("/art_history", methods=["GET", "POST"])
 # def upload_file_art_history():
 #     if request.method == "POST":
 #         # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
 #         pin = folderIncrement()
-#         writefile([pin])  # comment for testing, uncomment for full
+#         # TEST COMMENT START
+#         writefile([pin])
 #         data = dict({"pin": pin, "models": []})
 #         # check if the post request has the files part
 #         quantity = int(request.form["quantity"])
@@ -125,7 +129,6 @@ def upload_file_dicom():
 #                 modeldata.update({"caption": cap, "files": []})
 #             for i in range(len(files)):
 #                 #     # if file and allowed_file(file.filename):
-#                 # comment for testing, uncomment for full
 #                 filename = secure_filename(files[i].filename)
 #                 files[i].save(os.path.join(
 #                     app.config["UPLOAD_FOLDER"], filename))
@@ -133,8 +136,7 @@ def upload_file_dicom():
 #             data["models"].append(modeldata)
 #             # if i == (len(files) - 1):
 #             #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
-#         # comment for testing, uncomment for full
 #         with open(os.path.join(app.config["UPLOAD_FOLDER"], pin + ".json"), "w") as jsonfile:
-#             # comment for testing, uncomment for full
 #             json.dump(data, jsonfile, indent=2)
+#         # TEST COMMENT END
 #         return render_template("success.html", pin=pin)
