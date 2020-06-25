@@ -53,9 +53,9 @@ def randomPin():
 def folderIncrement():
     curr = randomPin()
     # TEST COMMENT START
-    UPLOAD_FOLDER = "../storage/dicom/" + curr
+    UPLOAD_FOLDER = "/var/www/storage/dicom/" + curr
     os.mkdir(UPLOAD_FOLDER)
-    os.mkdir("../storage/obj/" + curr)
+    os.mkdir("/var/www/storage/obj/" + curr)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     # TEST COMMENT END
     return curr
