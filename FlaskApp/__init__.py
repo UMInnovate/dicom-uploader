@@ -14,11 +14,15 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
+# import sys
+# print(sys.version)
+
 ALLOWED_EXTENSIONS = set(["dcm", "png", "jpg"])
 
+pinfile = "/var/www/storage/pins.csv"
 
 def openfile():
-    f = open("pins.csv", 'r')
+    f = open(pinfile, 'r')
     pinread = []
     for k in csv.reader(f):
         pinread.append(k)
@@ -27,7 +31,7 @@ def openfile():
 
 
 def writefile(txt):
-    f = open("pins.csv", 'a', newline='')
+    f = open(pinfile, 'a')
     pinwrite = csv.writer(f)
     pinwrite.writerow(txt)
     f.close
