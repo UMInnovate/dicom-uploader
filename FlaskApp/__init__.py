@@ -19,11 +19,11 @@ from werkzeug.utils import secure_filename
 
 ALLOWED_EXTENSIONS = set(["dcm", "png", "jpg"])
 
-# REMEMBER TO CHANGE THIS BACK TO "/var/www/"!!!
-rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
+# REMEMBER TO CHANGE THIS BACK TO "/var/www"!!!
+rootfile = "/var/www"
 pinfile = rootfile + "/storage/pins.csv"
 # max file size is in MB
-maxfilesize = 80
+maxfilesize = 100
 
 
 def openfile():
