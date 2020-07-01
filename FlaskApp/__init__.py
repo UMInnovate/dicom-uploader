@@ -22,7 +22,8 @@ ALLOWED_EXTENSIONS = set(["dcm", "png", "jpg"])
 # REMEMBER TO CHANGE THIS BACK TO "/var/www/"!!!
 rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
 pinfile = rootfile + "/storage/pins.csv"
-maxfilesize = 100
+# max file size is in MB
+maxfilesize = 80
 
 
 def openfile():
@@ -98,8 +99,8 @@ def upload_form_dicom():
 def upload_file_dicom():
     if request.method == "POST":
         # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
-        # TEST COMMENT START
         # check if the post request has the files part
+        print(request.content_length, maxfilesize)
         if "files[]" not in request.files:
             flash("No file part")
             return redirect(request.url)
@@ -110,17 +111,18 @@ def upload_file_dicom():
             filename = secure_filename(f.filename)
             if not allowed_file(filename):
                 goahead = False
-        if goahead:
+        if goahead and request.content_length <= maxfilesize * (2**20):
             pin = folderIncrement()
+            # TEST COMMENT START
             writefile([pin])
             for f in files:
                 f.save(os.path.join(
                     app.config["UPLOAD_FOLDER"], filename))
+            # TEST COMMENT END
         else:
             return render_template("failure.html", maxfilesize=maxfilesize)
         # if i == (len(files) - 1):
         #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
-        # TEST COMMENT END
         return render_template("success.html", pin=pin)
 
 
