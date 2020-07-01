@@ -19,7 +19,11 @@ from werkzeug.utils import secure_filename
 
 ALLOWED_EXTENSIONS = set(["dcm", "png", "jpg"])
 
-pinfile = "/var/www/storage/pins.csv"
+# REMEMBER TO CHANGE THIS BACK TO "/var/www/"!!!
+rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
+pinfile = rootfile + "/storage/pins.csv"
+maxfilesize = 100
+
 
 def openfile():
     f = open(pinfile, 'r')
@@ -57,9 +61,9 @@ def randomPin():
 def folderIncrement():
     curr = randomPin()
     # TEST COMMENT START
-    UPLOAD_FOLDER = "/var/www/storage/dicom/" + curr
+    UPLOAD_FOLDER = rootfile + "/storage/dicom/" + curr
     os.mkdir(UPLOAD_FOLDER)
-    os.mkdir("/var/www/storage/obj/" + curr)
+    os.mkdir(rootfile + "/storage/obj/" + curr)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     # TEST COMMENT END
     return curr
@@ -71,14 +75,17 @@ app.secret_key = "secret key"
 
 def allowed_file(filename):
     checkForExtension = "." in filename
-    checkExtension = filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+    checkExtension = False
+    if checkForExtension:
+        checkExtension = filename.rsplit(
+            ".", 1)[1].lower() in ALLOWED_EXTENSIONS
     return checkForExtension and checkExtension
 
 
 # for future functionality, replace "/" with "/{route_to_dicom}" below
 @app.route("/")
 def upload_form_dicom():
-    return render_template("index.html")
+    return render_template("index.html", maxfilesize=maxfilesize)
 
 # for future functionality, uncomment (and replace "/art_history" with "/{route_to_art_history}") below
 # @app.route("/art_history")
@@ -91,19 +98,26 @@ def upload_form_dicom():
 def upload_file_dicom():
     if request.method == "POST":
         # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
-        pin = folderIncrement()
         # TEST COMMENT START
-        writefile([pin])
         # check if the post request has the files part
         if "files[]" not in request.files:
             flash("No file part")
             return redirect(request.url)
         files = request.files.getlist("files[]")
-        for i in range(len(files)):
-            #     # if file and allowed_file(file.filename):
-            filename = secure_filename(files[i].filename)
-            files[i].save(os.path.join(
-                app.config["UPLOAD_FOLDER"], filename))
+        goahead = True
+        pin = ""
+        for f in files:
+            filename = secure_filename(f.filename)
+            if not allowed_file(filename):
+                goahead = False
+        if goahead:
+            pin = folderIncrement()
+            writefile([pin])
+            for f in files:
+                f.save(os.path.join(
+                    app.config["UPLOAD_FOLDER"], filename))
+        else:
+            return render_template("failure.html", maxfilesize=maxfilesize)
         # if i == (len(files) - 1):
         #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
         # TEST COMMENT END
