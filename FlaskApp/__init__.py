@@ -17,13 +17,13 @@ from werkzeug.utils import secure_filename
 # import sys
 # print(sys.version)
 
-ALLOWED_EXTENSIONS = set(["dcm", "png", "jpg"])
+ALLOWED_EXTENSIONS = set(["obj"])
 
 # REMEMBER TO CHANGE THIS BACK TO "/var/www"!!!
 rootfile = "/var/www"
 pinfile = rootfile + "/storage/pins.csv"
 # max file size is in MB
-maxfilesize = 100
+maxfilesize = 500
 
 
 def openfile():
@@ -62,9 +62,9 @@ def randomPin():
 def folderIncrement():
     curr = randomPin()
     # TEST COMMENT START
-    UPLOAD_FOLDER = rootfile + "/storage/dicom/" + curr
+    UPLOAD_FOLDER = rootfile + "/storage/obj/" + curr
     os.mkdir(UPLOAD_FOLDER)
-    os.mkdir(rootfile + "/storage/obj/" + curr)
+    # os.mkdir(rootfile + "/storage/obj/" + curr)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     # TEST COMMENT END
     return curr
