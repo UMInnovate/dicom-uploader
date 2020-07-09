@@ -119,7 +119,7 @@ def upload_file_dicom():
             writefile([pin])
             for f in files:
                 f.save(os.path.join(
-                    app.config["UPLOAD_FOLDER"], filename))
+                    app.config["UPLOAD_FOLDER"], f.filename))
             # TEST COMMENT END
         else:
             return render_template("failure.html", maxfilesize=maxfilesize)
