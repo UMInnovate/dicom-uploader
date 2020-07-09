@@ -21,11 +21,11 @@ from werkzeug.utils import secure_filename
 ALLOWED_EXTENSIONS = set(["dcm", "stl", "jpg"])
 
 # REMEMBER TO CHANGE THIS BACK TO "/var/www"!!!
-rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
+rootfile = "C:/Users/Public/Desktop/UM_Innovate"
 inputfile = rootfile + "/storage/dicom/"
 outputfile = rootfile + "/storage/obj/"
 pinfile = rootfile + "/storage/pins.csv"
-extensionpath = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate/dicom-visualizer-slicer/DICOM2OBJ/DICOM2OBJ.py"
+extensionpath = "C:/Users/Public/Desktop/UM_Innovate/dicom-visualizer-slicer/DICOM2OBJ/DICOM2OBJ.py"
 # max file size is in MB
 maxfilesize = 500
 
@@ -121,11 +121,9 @@ def upload_file_dicom():
             for f in files:
                 f.save(os.path.join(
                     app.config["UPLOAD_FOLDER"], f.filename))
-                print("saved")
             cmd = "Slicer --no-main-window --no-splash --python-script " + \
                 extensionpath + " -i " + inputfile + "/" + \
                 pin + "/ -o " + outputfile + "/" + pin + "/"
-            print(cmd)
             subprocess.run(cmd, shell=True)
             # TEST COMMENT END
         else:
