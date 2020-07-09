@@ -20,7 +20,9 @@ from werkzeug.utils import secure_filename
 ALLOWED_EXTENSIONS = set(["obj"])
 
 # REMEMBER TO CHANGE THIS BACK TO "/var/www"!!!
-rootfile = "/var/www"
+rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
+inputfile = rootfile + "/storage/dicom/"
+outputfile = rootfile + "/storage/obj/"
 pinfile = rootfile + "/storage/pins.csv"
 # max file size is in MB
 maxfilesize = 500
@@ -62,9 +64,9 @@ def randomPin():
 def folderIncrement():
     curr = randomPin()
     # TEST COMMENT START
-    UPLOAD_FOLDER = rootfile + "/storage/obj/" + curr
+    UPLOAD_FOLDER = outputfile + curr
     os.mkdir(UPLOAD_FOLDER)
-    # os.mkdir(rootfile + "/storage/obj/" + curr)
+    # os.mkdir(outputfile + curr)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     # TEST COMMENT END
     return curr
@@ -121,8 +123,6 @@ def upload_file_dicom():
             # TEST COMMENT END
         else:
             return render_template("failure.html", maxfilesize=maxfilesize)
-        # if i == (len(files) - 1):
-        #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
         return render_template("success.html", pin=pin)
 
 
@@ -155,7 +155,7 @@ def upload_file_dicom():
 #                 modeldata["files"].append(filename)
 #             data["models"].append(modeldata)
 #             # if i == (len(files) - 1):
-#             #     S.run("Z:\Slicer 4.11.0-2020-03-24\Slicer.exe", shell=True)
+#             #     S.run("Z:/Slicer 4.11.0-2020-03-24/Slicer.exe", shell=True)
 #         with open(os.path.join(app.config["UPLOAD_FOLDER"], pin + ".json"), "w") as jsonfile:
 #             json.dump(data, jsonfile, indent=2)
 #         # TEST COMMENT END
