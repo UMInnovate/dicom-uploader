@@ -20,7 +20,7 @@ from werkzeug.utils import secure_filename
 ALLOWED_EXTENSIONS = set(["obj"])
 
 # REMEMBER TO CHANGE THIS BACK TO "/var/www"!!!
-rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
+rootfile = "var/www"
 inputfile = rootfile + "/storage/dicom/"
 outputfile = rootfile + "/storage/obj/"
 pinfile = rootfile + "/storage/pins.csv"
