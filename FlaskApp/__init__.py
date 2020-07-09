@@ -3,6 +3,7 @@ import random
 import csv
 import json
 import time
+import subprocess
 from flask import (
     Flask,
     flash,
@@ -17,13 +18,14 @@ from werkzeug.utils import secure_filename
 # import sys
 # print(sys.version)
 
-ALLOWED_EXTENSIONS = set(["obj"])
+ALLOWED_EXTENSIONS = set(["dcm", "stl", "jpg"])
 
 # REMEMBER TO CHANGE THIS BACK TO "/var/www"!!!
 rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
 inputfile = rootfile + "/storage/dicom/"
 outputfile = rootfile + "/storage/obj/"
 pinfile = rootfile + "/storage/pins.csv"
+extensionpath = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate/dicom-visualizer-slicer/DICOM2OBJ/DICOM2OBJ.py"
 # max file size is in MB
 maxfilesize = 500
 
@@ -64,9 +66,9 @@ def randomPin():
 def folderIncrement():
     curr = randomPin()
     # TEST COMMENT START
-    UPLOAD_FOLDER = outputfile + curr
+    UPLOAD_FOLDER = inputfile + curr
     os.mkdir(UPLOAD_FOLDER)
-    # os.mkdir(outputfile + curr)
+    os.mkdir(outputfile + curr)
     app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
     # TEST COMMENT END
     return curr
@@ -102,7 +104,6 @@ def upload_file_dicom():
     if request.method == "POST":
         # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
         # check if the post request has the files part
-        print(request.content_length, maxfilesize)
         if "files[]" not in request.files:
             flash("No file part")
             return redirect(request.url)
@@ -119,7 +120,13 @@ def upload_file_dicom():
             writefile([pin])
             for f in files:
                 f.save(os.path.join(
-                    app.config["UPLOAD_FOLDER"], filename))
+                    app.config["UPLOAD_FOLDER"], f.filename))
+                print("saved")
+            cmd = "Slicer --no-main-window --no-splash --python-script " + \
+                extensionpath + " -i " + inputfile + "/" + \
+                pin + "/ -o " + outputfile + "/" + pin + "/"
+            print(cmd)
+            subprocess.run(cmd, shell=True)
             # TEST COMMENT END
         else:
             return render_template("failure.html", maxfilesize=maxfilesize)
