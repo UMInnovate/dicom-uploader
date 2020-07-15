@@ -21,11 +21,11 @@ from werkzeug.utils import secure_filename
 ALLOWED_EXTENSIONS = set(["dcm", "stl", "jpg"])
 
 # REMEMBER TO CHANGE THIS BACK TO "/var/www"!!!
-rootfile = "C:/Users/Public/Desktop/UM_Innovate"
+rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
 inputfile = rootfile + "/storage/dicom/"
 outputfile = rootfile + "/storage/obj/"
 pinfile = rootfile + "/storage/pins.csv"
-extensionpath = "C:/Users/Public/Desktop/UM_Innovate/dicom-visualizer-slicer/DICOM2OBJ/DICOM2OBJ.py"
+extensionpath = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate/dicom-visualizer-slicer/DICOM2OBJ/DICOM2OBJ.py"
 # max file size is in MB
 maxfilesize = 500
 
@@ -40,7 +40,7 @@ def openfile():
 
 
 def writefile(txt):
-    f = open(pinfile, 'a')
+    f = open(pinfile, 'a', newline='')
     pinwrite = csv.writer(f)
     pinwrite.writerow(txt)
     f.close
@@ -122,13 +122,14 @@ def upload_file_dicom():
                 f.save(os.path.join(
                     app.config["UPLOAD_FOLDER"], f.filename))
             cmd = "Slicer --no-main-window --no-splash --python-script " + \
-                extensionpath + " -i " + inputfile + "/" + \
-                pin + "/ -o " + outputfile + "/" + pin + "/"
+                extensionpath + " -i " + inputfile + \
+                pin + "/ -o " + outputfile + pin + "/"
+            print(cmd)
             subprocess.run(cmd, shell=True)
             # TEST COMMENT END
+            return render_template("success.html", pin=pin)
         else:
             return render_template("failure.html", maxfilesize=maxfilesize)
-        return render_template("success.html", pin=pin)
 
 
 # for future functionality, uncomment (and replace "/art_history" with "/{route_to_art_history}") below
