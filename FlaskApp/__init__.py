@@ -16,18 +16,25 @@ from flask import (
 from werkzeug.utils import secure_filename
 
 # import sys
+# sys.path.insert(
+#     0, )
 # print(sys.version)
 
 ALLOWED_EXTENSIONS = set(["dcm", "stl", "jpg"])
 
-# REMEMBER TO CHANGE THIS BACK TO "/var/www"!!!
+# the only paths you should need to change below are "rootfile", "extensionpath", and "slicerPath"
 rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
 inputfile = rootfile + "/storage/dicom/"
 outputfile = rootfile + "/storage/obj/"
 pinfile = rootfile + "/storage/pins.csv"
 extensionpath = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate/dicom-visualizer-slicer/DICOM2OBJ/DICOM2OBJ.py"
+slicerPath = r"C:\Users\Administrator\AppData\Local\NA-MIC\Slicer 4.11.0-2020-07-07"
 # max file size is in MB
 maxfilesize = 500
+
+env = os.environ
+newpath = {'PATH': slicerPath}
+env.update(newpath)
 
 
 def openfile():
@@ -121,11 +128,13 @@ def upload_file_dicom():
             for f in files:
                 f.save(os.path.join(
                     app.config["UPLOAD_FOLDER"], f.filename))
-            cmd = "Slicer --no-main-window --no-splash --python-script " + \
-                extensionpath + " -i " + inputfile + \
-                pin + "/ -o " + outputfile + pin + "/"
-            print(cmd)
-            subprocess.run(cmd, shell=True)
+            cmd = ["Slicer", "--no-main-window", "--no-splash", "--python-script",
+                   extensionpath, "-i", inputfile + pin + "/", "-o", outputfile + pin + "/"]
+            # print(' '.join(cmd))
+            subprocess.run(cmd, shell=True, env=env)
+            # stdout, stderr = c.communicate()
+            # print(stdout)
+            # print(stderr)
             # TEST COMMENT END
             return render_template("success.html", pin=pin)
         else:
