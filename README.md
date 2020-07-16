@@ -1,7 +1,5 @@
 # Flask Uploader Form
 
-**This is a test**
-
 ## Setting up the environment
 
 ### The short way with venv
