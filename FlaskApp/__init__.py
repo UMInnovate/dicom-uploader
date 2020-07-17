@@ -23,12 +23,12 @@ from werkzeug.utils import secure_filename
 ALLOWED_EXTENSIONS = set(["dcm", "stl", "jpg"])
 
 # the only paths you should need to change below are "rootfile", "extensionpath", and "slicerPath"
-rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
+rootfile = "C:/UM_Innovate"
 inputfile = rootfile + "/storage/dicom/"
 outputfile = rootfile + "/storage/obj/"
 pinfile = rootfile + "/storage/pins.csv"
-extensionpath = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate/dicom-visualizer-slicer/DICOM2OBJ/DICOM2OBJ.py"
-slicerPath = r"C:\Users\Administrator\AppData\Local\NA-MIC\Slicer 4.11.0-2020-07-07"
+extensionpath = "C:/UM_Innovate/dicom-visualizer-slicer/DICOM2OBJ/DICOM2OBJ.py"
+slicerPath = r"C:\Users\mgarg\AppData\Local\NA-MIC\Slicer 4.11.0-2020-07-14"
 # max file size is in MB
 maxfilesize = 500
 
