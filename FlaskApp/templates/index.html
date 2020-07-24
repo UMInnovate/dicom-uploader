@@ -53,13 +53,13 @@
       </div>
 
       <!-- start instructions -->
-      <p class="instructions" id="instructionText">
+      <div class="instructions" id="instructionText">
         Upload any number of DICOM (.dcm) files to create models on the Magic
         Leap One headset.
         <br />
         <strong>Note:</strong> There is a 500MB limit on total size of an
         upload.
-      </p>
+      </div>
       <!-- end instructions -->
 
       <!-- start form  -->
@@ -89,7 +89,8 @@
         </div>
       </form>
       <!-- end form -->
-      <!-- loading spinner -->
+
+      <!-- start loading spinner -->
       <div class="d-none" id="loadingSection">
         <video
           loop
@@ -99,8 +100,8 @@
           src="{{url_for('static', filename='test2.mp4')}}"
         ></video>
       </div>
+      <!-- end loading spinner -->
     </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
   </body>
 </html>

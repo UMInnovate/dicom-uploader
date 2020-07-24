@@ -95,8 +95,13 @@ def allowed_file(filename):
 
 # for future functionality, replace "/" with "/{route_to_dicom}" below
 @app.route("/")
+@app.route("/index.html")
 def upload_form_dicom():
     return render_template("index.html", maxfilesize=maxfilesize)
+
+
+# def upload_form_dicom():
+#     return render_template("index.html", maxfilesize=maxfilesize)
 
 
 @app.route("/success.html")

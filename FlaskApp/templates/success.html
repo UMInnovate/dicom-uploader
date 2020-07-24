@@ -1,56 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Universal Loader</title>
-    <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" /> -->
+    <title>DICOM AR Visualizer</title>
     <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <script
+      src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
 
-    <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
-</head>
+    <link
+      href="{{ url_for('static', filename='css/dicom.css')}}"
+      rel="stylesheet"
+    />
+  </head>
 
-<body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">uminnovate</a>
-        </div>
-    </nav>
-    <!-- Masthead-->
-    <header class="masthead">
-        <div class="container d-flex h-100 align-items-center">
-            <div class="mx-auto text-center">
-                <h1 class="text-dark mx-auto my-0 text-uppercase">Universal Loader</h1>
-                <div class="d-block" id="form">
-                    <h3 class="text-dark mx-auto mt-2 mb-5">Your file(s) has/have been processed.</h3>
-                    <p class="text-dark mx-auto mt-2 mb-5">Please open the viewer application on your headset and enter
-                        the pin below:</p>
-                    <h1 class="text-dark mx-auto mt-2 mb-5">{{pin}}</h1>
-                </div>
-            </div>
-        </div>
+  <body>
+    <header class="sponsors">
+      <!-- Logos for UMIT and  UHealth go here-->
+      <img src="{{url_for('static', filename='img/umit_green.svg')}}" alt=UMIT"
+      class="sponsors__logo">
+      <img
+        src="{{url_for('static', filename='img/uhealth.svg')}}"
+        alt="UHealth"
+        class="sponsors__logo"
+      />
     </header>
-    <footer class="footer bg-black small text-center text-white-50">
-        <div class="container">Copyright © uminnovate 2020</div>
-        <img src="{{url_for('static', filename='information-technology-innovate_443x77.png')}}" align="middle" />
-    </footer>
+    <main>
+      <div class="logo">
+        <img
+          src="{{url_for('static', filename='img/DICOM.svg')}}"
+          alt=""
+          class="logo__img"
+        />
+      </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-
+      <!-- start instructions -->
+      <div class="instructions">
+        <span class="important important--green">
+          Your files were successfully processed.
+        </span>
+        Use this pin on the headset application to view your model:
+        <br />
+        <div class="pin">{{pin}}</div>
+      </div>
+      <!-- end instructions -->
+    </main>
     <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
-</body>
-
+  </body>
 </html>

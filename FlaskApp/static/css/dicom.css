@@ -4,7 +4,10 @@
   --button__bg: #d2d3d4;
   --shadow: #868686;
   --blue: #96daeb;
+  --dark-blue: #06a0c7;
+  --green: #4bb543;
 }
+
 html {
   font-family: 'Inter', sans-serif;
   font-size: clamp(24px, 1.5vw, 25px);
@@ -18,7 +21,14 @@ body {
   max-width: 70rem;
   margin: 0 auto;
 }
+main {
+  text-align: center;
+}
 
+br {
+  margin: 2% 0 0 0;
+  display: block;
+}
 .sponsors {
   display: flex;
   flex-direction: row;
@@ -31,10 +41,6 @@ body {
   width: auto;
 }
 
-main {
-  text-align: center;
-}
-
 .logo {
   display: block;
   margin: 0 auto;
@@ -43,6 +49,12 @@ main {
 .logo__img {
   width: 100%;
   margin-left: 25px;
+}
+
+.instructions {
+  display: block;
+  max-width: 40rem;
+  margin: 0 auto 3% auto;
 }
 
 .browse {
@@ -75,4 +87,36 @@ main {
   padding: 7px 28px;
   border-radius: 10px;
   font-size: 0.7rem;
+  box-shadow: -1px 2px 4px var(--shadow);
+}
+
+.important {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.important--red {
+  color: var(--red);
+}
+
+.important--green {
+  color: var(--green);
+}
+
+.file_type {
+  font-weight: 600;
+}
+
+.pin {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+  padding: 7px 28px;
+  font-size: 2rem;
+  background-color: var(--dark-blue);
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: -1px 2px 4px var(--shadow);
 }
