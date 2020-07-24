@@ -1,84 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Universal Loader</title>
-    <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" /> -->
+    <title>DICOM AR Visualizer</title>
     <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <script
+      src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
 
-    <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
-</head>
+    <link
+      href="{{ url_for('static', filename='css/dicom.css')}}"
+      rel="stylesheet"
+    />
+  </head>
 
-<body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top">uminnovate </a>
-
-        </div>
-    </nav>
-    <!-- Masthead-->
-    <header class="masthead">
-        <div class="container d-flex h-100 align-items-center">
-            <div class="mx-auto text-center">
-                <h1 class="text-dark mx-auto my-0 text-uppercase">Universal Loader</h1>
-                <div id="form">
-                    <h3 class="text-dark mx-auto mt-2 mb-5">Upload any number of .obj files to access models on the
-                        Magic Leap One headset (max total size of {{maxfilesize}}MB)</h3> <!-- -->
-                    <!-- -->
-                    <div>
-                        <p class="text-dark mx-auto mt-2 mb-5">
-                            {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                        <ul class="text-dark mx-auto mt-2 mb-5 flashes">
-                            {% for message in messages %}
-                            <li>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                        {% endwith %}
-                        </p>
-                    </div>
-                    <form method="post" action="/" enctype="multipart/form-data">
-                        <dl>
-                            <p>
-                                <input class="btn btn-secondary" type="file" name="files[]" multiple="true"
-                                    autocomplete="off" required>
-                            </p>
-                        </dl>
-                        <p>
-                            <input class="btn btn-primary" id="enter" type="submit" value="Submit">
-                        </p>
-                    </form>
-                </div>
-                <div class="d-none" id="loading">
-                    <h3 class="text-dark mx-auto mt-2 mb-5">Now processing your files</h3>
-                    <video loop autoplay muted playsinline src="{{url_for('static', filename='test2.mp4')}}"></video>
-                </div>
-            </div>
-        </div>
+  <body>
+    <header class="sponsors">
+      <!-- Logos for UMIT and  UHealth go here-->
+      <img src="{{url_for('static', filename='img/umit_green.svg')}}" alt=UMIT"
+      class="sponsors__logo">
+      <img
+        src="{{url_for('static', filename='img/uhealth.svg')}}"
+        alt="UHealth"
+        class="sponsors__logo"
+      />
     </header>
-    <!-- Footer-->
-    <footer class="footer bg-black small text-center text-white-50">
-        <div class="container">Copyright © uminnovate 2020</div>
-        <img src="{{url_for('static', filename='information-technology-innovate_443x77.png')}}" align="middle" />
-    </footer>
+    <main>
+      <div class="logo">
+        <img
+          src="{{url_for('static', filename='img/DICOM.svg')}}"
+          alt=""
+          class="logo__img"
+        />
+      </div>
+
+      <!-- start instructions -->
+      <p class="instructions" id="instructionText">
+        Upload any number of DICOM (.dcm) files to create models on the Magic
+        Leap One headset.
+        <br />
+        <strong>Note:</strong> There is a 500MB limit on total size of an
+        upload.
+      </p>
+      <!-- end instructions -->
+
+      <!-- start form  -->
+      <form
+        id="uploadForm"
+        method="post"
+        action="/"
+        enctype="multipart/form-data"
+      >
+        <div class="browse">
+          <input
+            class="browse__button"
+            type="file"
+            name="files[]"
+            multiple="true"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <div class="submit">
+          <input
+            class="submit__button"
+            id="submitButton"
+            type="submit"
+            value="Submit"
+          />
+        </div>
+      </form>
+      <!-- end form -->
+      <!-- loading spinner -->
+      <div class="d-none" id="loadingSection">
+        <video
+          loop
+          autoplay
+          muted
+          playsinline
+          src="{{url_for('static', filename='test2.mp4')}}"
+        ></video>
+      </div>
+    </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-
     <script src="{{ url_for('static', filename='js/scripts.js')}}"></script>
-</body>
-
+  </body>
 </html>
