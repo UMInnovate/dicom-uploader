@@ -33,12 +33,12 @@ slicerPath = r"C:\Users\mgarg\AppData\Local\NA-MIC\Slicer 4.11.0-2020-07-14"
 maxfilesize = 500
 
 env = os.environ
-newpath = {'PATH': slicerPath}
+newpath = {"PATH": slicerPath}
 env.update(newpath)
 
 
 def openfile():
-    f = open(pinfile, 'r')
+    f = open(pinfile, "r")
     pinread = []
     for k in csv.reader(f):
         pinread.append(k)
@@ -47,7 +47,7 @@ def openfile():
 
 
 def writefile(txt):
-    f = open(pinfile, 'a', newline='')
+    f = open(pinfile, "a", newline="")
     pinwrite = csv.writer(f)
     pinwrite.writerow(txt)
     f.close
@@ -61,7 +61,7 @@ def randomPin():
     if [pinarr] not in openfile():
         return pinarr
     else:
-        if len(openfile()) != 10**pinsize:
+        if len(openfile()) != 10 ** pinsize:
             print("used pin")
             return randomPin()
         else:
@@ -89,15 +89,16 @@ def allowed_file(filename):
     checkForExtension = "." in filename
     checkExtension = False
     if checkForExtension:
-        checkExtension = filename.rsplit(
-            ".", 1)[1].lower() in ALLOWED_EXTENSIONS
+        checkExtension = filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
     return checkForExtension and checkExtension
 
 
 # for future functionality, replace "/" with "/{route_to_dicom}" below
+@app.route("/index.html")
 @app.route("/")
 def upload_form_dicom():
     return render_template("index.html", maxfilesize=maxfilesize)
+
 
 # for future functionality, uncomment (and replace "/art_history" with "/{route_to_art_history}") below
 # @app.route("/art_history")
@@ -121,15 +122,23 @@ def upload_file_dicom():
             filename = secure_filename(f.filename)
             if not allowed_file(filename):
                 goahead = False
-        if goahead and request.content_length <= maxfilesize * (2**20):
+        if goahead and request.content_length <= maxfilesize * (2 ** 20):
             pin = folderIncrement()
             # TEST COMMENT START
             writefile([pin])
             for f in files:
-                f.save(os.path.join(
-                    app.config["UPLOAD_FOLDER"], f.filename))
-            cmd = ["Slicer", "--no-main-window", "--no-splash", "--python-script",
-                   extensionpath, "-i", inputfile + pin + "/", "-o", outputfile + pin + "/"]
+                f.save(os.path.join(app.config["UPLOAD_FOLDER"], f.filename))
+            cmd = [
+                "Slicer",
+                "--no-main-window",
+                "--no-splash",
+                "--python-script",
+                extensionpath,
+                "-i",
+                inputfile + pin + "/",
+                "-o",
+                outputfile + pin + "/",
+            ]
             # print(' '.join(cmd))
             subprocess.run(cmd, shell=True, env=env)
             # stdout, stderr = c.communicate()
