@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  background-color: var(--off-white);
+  background-color: var(--off__white);
   max-width: 70rem;
   margin: 0 auto;
 }
@@ -119,4 +119,18 @@ br {
   color: #fff;
   border-radius: 10px;
   box-shadow: -1px 2px 4px var(--shadow);
+}
+
+.video-wrapper {
+  width: 600px;
+  overflow: hidden;
+  display: block;
+  height: 600px;
+  margin: 0 auto;
+}
+
+.video-wrapper video {
+  position: relative;
+  left: -1110px;
+  top: -500px;
 }
