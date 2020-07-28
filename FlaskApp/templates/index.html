@@ -47,6 +47,7 @@
     <main>
       <div class="logo">
         <img
+          id="testlogo"
           src="{{url_for('static', filename='img/dicom.png')}}"
           alt=""
           class="logo__img"
@@ -55,8 +56,14 @@
 
       <!-- start instructions -->
       <div class="instructions" id="instructionText">
-        Upload any number of DICOM (.dcm) files to create models on the Magic
-        Leap One headset.
+        Upload any number of DICOM (.dcm) files to create models for the Magic
+        Leap One headset. Visit our
+        <a
+          href="https://docs.google.com/document/d/e/2PACX-1vQe2kJlZBV_2svU5mvf63kFJqaUQ1w9IfLHIpHBro183e9vzQ6ifwyi2mgMnUIDpCOfu5vKER31Valt/pub"
+        >
+          user guide
+        </a>
+        for a step-by-step walkthrough.
         <br />
         <strong>Note:</strong> There is a 500MB limit on total size of an
         upload.
@@ -98,7 +105,7 @@
           autoplay
           muted
           playsinline
-          src="{{url_for('static', filename='loading_animation.mp4')}}"
+          src="{{url_for('static', filename='dicom_loading.mp4')}}"
         ></video>
       </div>
       <!-- end loading spinner -->
