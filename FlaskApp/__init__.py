@@ -15,11 +15,6 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
-# import sys
-# sys.path.insert(
-#     0, )
-# print(sys.version)
-
 ALLOWED_EXTENSIONS = set(["dcm", "stl", "jpg"])
 
 # the only paths you should need to change below are "rootfile", "extensionpath", and "slicerPath"
@@ -89,29 +84,20 @@ def allowed_file(filename):
     checkForExtension = "." in filename
     checkExtension = False
     if checkForExtension:
-        checkExtension = filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+        checkExtension = filename.rsplit(
+            ".", 1)[1].lower() in ALLOWED_EXTENSIONS
     return checkForExtension and checkExtension
 
 
-# for future functionality, replace "/" with "/{route_to_dicom}" below
 @app.route("/index.html")
 @app.route("/")
 def upload_form_dicom():
     return render_template("index.html", maxfilesize=maxfilesize)
 
 
-# for future functionality, uncomment (and replace "/art_history" with "/{route_to_art_history}") below
-# @app.route("/art_history")
-# def upload_form_art_history():
-#     return render_template("index_future.html")
-
-
-# for future functionality, replace "/" with "/{route_to_dicom}" below
 @app.route("/", methods=["GET", "POST"])
 def upload_file_dicom():
     if request.method == "POST":
-        # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
-        # check if the post request has the files part
         if "files[]" not in request.files:
             flash("No file part")
             return redirect(request.url)
@@ -139,48 +125,8 @@ def upload_file_dicom():
                 "-o",
                 outputfile + pin + "/",
             ]
-            # print(' '.join(cmd))
             subprocess.run(cmd, shell=True, env=env)
-            # stdout, stderr = c.communicate()
-            # print(stdout)
-            # print(stderr)
             # TEST COMMENT END
             return render_template("success.html", pin=pin)
         else:
             return render_template("failure.html", maxfilesize=maxfilesize)
-
-
-# for future functionality, uncomment (and replace "/art_history" with "/{route_to_art_history}") below
-# @app.route("/art_history", methods=["GET", "POST"])
-# def upload_file_art_history():
-#     if request.method == "POST":
-#         # time.sleep(3)  # ONLY FOR TESTING!! PLEASE REMOVE ON DEPLOYMENT!!!
-#         pin = folderIncrement()
-#         # TEST COMMENT START
-#         writefile([pin])
-#         data = dict({"pin": pin, "models": []})
-#         # check if the post request has the files part
-#         quantity = int(request.form["quantity"])
-#         for i in range(quantity):
-#             modeldata = dict()
-#             curr = str(i)
-#             if "files" + curr + "[]" not in request.files:
-#                 flash("No file part")
-#                 return redirect(request.url)
-#             files = request.files.getlist("files" + curr + "[]")
-#             cap = request.form.get("caption" + curr)
-#             if cap is not None:
-#                 modeldata.update({"caption": cap, "files": []})
-#             for i in range(len(files)):
-#                 #     # if file and allowed_file(file.filename):
-#                 filename = secure_filename(files[i].filename)
-#                 files[i].save(os.path.join(
-#                     app.config["UPLOAD_FOLDER"], filename))
-#                 modeldata["files"].append(filename)
-#             data["models"].append(modeldata)
-#             # if i == (len(files) - 1):
-#             #     S.run("Z:/Slicer 4.11.0-2020-03-24/Slicer.exe", shell=True)
-#         with open(os.path.join(app.config["UPLOAD_FOLDER"], pin + ".json"), "w") as jsonfile:
-#             json.dump(data, jsonfile, indent=2)
-#         # TEST COMMENT END
-#         return render_template("success.html", pin=pin)
