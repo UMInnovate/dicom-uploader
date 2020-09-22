@@ -124,6 +124,10 @@ def upload_file_dicom():
                 inputfile + pin + "/",
                 "-o",
                 outputfile + pin + "/",
+                "-n",
+                request.form.get("min_thresh"),
+                "-x",
+                request.form.get("max_thresh")
             ]
             subprocess.run(cmd, shell=True, env=env)
             # TEST COMMENT END
