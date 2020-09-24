@@ -19,6 +19,7 @@ ALLOWED_EXTENSIONS = set(["dcm", "stl", "jpg"])
 
 # the only paths you should need to change below are "rootfile", "extensionpath", and "slicerPath"
 rootfile = "C:/UM_Innovate"
+# rootfile = "C:/Users/Administrator/Desktop/Coding_stuff/UM_Innovate"
 inputfile = rootfile + "/storage/dicom/"
 outputfile = rootfile + "/storage/obj/"
 pinfile = rootfile + "/storage/pins.csv"
@@ -110,6 +111,8 @@ def upload_file_dicom():
                 goahead = False
         if goahead and request.content_length <= maxfilesize * (2 ** 20):
             pin = folderIncrement()
+            print(request.form.get("min_thresh"),
+                  request.form.get("max_thresh"))
             # TEST COMMENT START
             writefile([pin])
             for f in files:
